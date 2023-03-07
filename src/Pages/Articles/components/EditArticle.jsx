@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
 function EditArticle({ isOpen, setIsOpen, dispatch, getArticles, article }) {
@@ -7,15 +7,21 @@ function EditArticle({ isOpen, setIsOpen, dispatch, getArticles, article }) {
   const [image, setImage] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const createArticle = (e) => {
+  useEffect(() => {
+    setTitle(article.title);
+    setDescription(article.description);
+    setImage(article.image);
+  }, [article]);
+
+  const EditHandler = (e) => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
-    fetch("http://localhost:3000/blog/create", {
-      method: "POST",
+    fetch(`http://localhost:3000/article/edit/${article.id}`, {
+      method: "PATCH",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -59,20 +65,22 @@ function EditArticle({ isOpen, setIsOpen, dispatch, getArticles, article }) {
             as="h1"
             className="text-2xl mb-2 font-bold text-gray-800"
           >
-            Create New Article
+            Edit Article
           </Dialog.Title>
-          <form className="flex flex-col gap-2" onSubmit={createArticle}>
+          <form className="flex flex-col gap-2" onSubmit={EditHandler}>
             <input
               type="text"
               placeholder="Title"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
               id="title"
+              value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
             <textarea
               placeholder="Description"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
               id="description"
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
             <input
@@ -87,7 +95,7 @@ function EditArticle({ isOpen, setIsOpen, dispatch, getArticles, article }) {
               type="submit"
               className="bg-gray-800 text-white p-2 rounded-md"
             >
-              Create
+              {loading ? "Loading..." : "Edit Article"}
             </button>
           </form>
         </Dialog.Panel>

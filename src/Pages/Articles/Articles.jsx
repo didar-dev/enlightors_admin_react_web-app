@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NewArticle from "./components/NewArticle";
 import DeleteArticle from "./components/DeleteArticle";
+import EditArticle from "./components/EditArticle";
 import { setArticles } from "../../redux/articles";
-
+import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 function Articles() {
   const [newarticle, setNewArticle] = useState(false);
   const [deletearticle, setDeleteArticle] = useState({
     isOpen: false,
     id: "",
+  });
+  const [editarticle, setEditArticle] = useState({
+    isOpen: false,
+    id: "",
+    article: {},
   });
 
   const [search, setSearch] = useState("");
@@ -34,13 +40,19 @@ function Articles() {
         });
     };
   };
-  const OpenDeleteDialog = (id) => {
+  const DeleteHandler = (id) => {
     setDeleteArticle({
       isOpen: true,
       id: id,
     });
   };
-
+  const EditHandler = (article) => {
+    setEditArticle({
+      isOpen: true,
+      id: article.id,
+      article: article,
+    });
+  };
   return (
     <div className="flex p-2 flex-col w-full gap-2">
       <div className="flex flex-row w-full justify-between items-center">
@@ -90,13 +102,19 @@ function Articles() {
                     <p className="text-gray-800">{article.description}</p>
                   </div>
                 </div>
-                <div
-                  className="flex  flex-row gap-2 
-                  bg-gray-200 rounded-md p-2 hover:bg-gray-300
-                  cursor-pointer"
-                  onClick={() => OpenDeleteDialog(article.id)}
-                >
-                  <BsFillTrashFill className="text-red-500" size={22} />
+                <div className="flex flex-row gap-2 items-center">
+                  <div
+                    className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer"
+                    onClick={() => EditHandler(article)}
+                  >
+                    <AiFillEdit className="text-blue-500" size={22} />
+                  </div>
+                  <div
+                    className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer"
+                    onClick={() => DeleteHandler(article.id)}
+                  >
+                    <BsFillTrashFill className="text-red-500" size={22} />
+                  </div>
                 </div>
               </div>
             ))}
@@ -113,6 +131,13 @@ function Articles() {
           setDeleteArticle({ ...deletearticle, isOpen: value })
         }
         id={deletearticle.id}
+        getArticles={getArticles}
+        dispatch={dispatch}
+      />
+      <EditArticle
+        isOpen={editarticle.isOpen}
+        setIsOpen={(value) => setEditArticle({ ...editarticle, isOpen: value })}
+        article={editarticle.article}
         getArticles={getArticles}
         dispatch={dispatch}
       />
