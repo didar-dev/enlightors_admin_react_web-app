@@ -9,9 +9,14 @@ function NavBar() {
   const dispatch = useDispatch();
   return (
     <div
-      className="sticky top-0 
+      className="
+ 
+    
     bg-gray-800 text-white flex justify-between items-center p-4"
     >
+      <div>
+        <h1 className="text-2xl font-bold">Enlightors</h1>
+      </div>
       <div></div>
       <div className="flex items-center">
         <Menu as="div" className="relative inline-block text-left">

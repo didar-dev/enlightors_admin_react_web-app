@@ -46,7 +46,7 @@ function App() {
           <div className="flex gap-2">
             <RightBar />
             <Routes>
-              <Route path="/" element={<Home />} />{" "}
+              <Route path="/" element={<Articles />} />{" "}
               <Route path="/users" element={<Users />} />{" "}
               <Route path="/Articles" element={<Articles />} />{" "}
             </Routes>

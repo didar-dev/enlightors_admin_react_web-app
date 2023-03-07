@@ -21,10 +21,7 @@ export default function RightBar() {
   });
 
   return (
-    <div className="sticky top-0 flex flex-col gap-2 bg-gray-900 h-screen w-48 max-w-48">
-      <div className="flex justify-between items-center p-2 text-white">
-        <h1 className="text-2xl font-bold">Enlightors</h1>
-      </div>
+    <div className="h-screen bg-gray-800">
       <div
         className={`flex gap-2 flex-col justify-between items-center p-2 ${
           open ? "w-48 max-w-48" : "w-12"

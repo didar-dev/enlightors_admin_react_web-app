@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NewArticle from "./components/NewArticle";
+import DeleteArticle from "./components/DeleteArticle";
 import { setArticles } from "../../redux/articles";
+
+import { BsFillTrashFill } from "react-icons/bs";
 function Articles() {
   const [newarticle, setNewArticle] = useState(false);
+  const [deletearticle, setDeleteArticle] = useState({
+    isOpen: false,
+    id: "",
+  });
+
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles);
@@ -25,6 +33,12 @@ function Articles() {
           dispatch(setArticles(data.articles));
         });
     };
+  };
+  const OpenDeleteDialog = (id) => {
+    setDeleteArticle({
+      isOpen: true,
+      id: id,
+    });
   };
 
   return (
@@ -64,12 +78,29 @@ function Articles() {
                   </h1>
                   <p className="text-gray-800">{article.description}</p>
                 </div>
+                <div
+                  className="flex  flex-row gap-2 
+                  bg-gray-200 rounded-md p-2 hover:bg-gray-300
+                  cursor-pointer"
+                  onClick={() => OpenDeleteDialog(article.id)}
+                >
+                  <BsFillTrashFill className="text-red-500" size={22} />
+                </div>
               </div>
             ))}
       </div>
       <NewArticle
         isOpen={newarticle}
         setIsOpen={setNewArticle}
+        getArticles={getArticles}
+        dispatch={dispatch}
+      />
+      <DeleteArticle
+        isOpen={deletearticle.isOpen}
+        setIsOpen={(value) =>
+          setDeleteArticle({ ...deletearticle, isOpen: value })
+        }
+        id={deletearticle.id}
         getArticles={getArticles}
         dispatch={dispatch}
       />
