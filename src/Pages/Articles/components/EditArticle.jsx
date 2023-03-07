@@ -1,7 +1,7 @@
 import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
-function NewArticle({ isOpen, setIsOpen, dispatch, getArticles }) {
+function EditArticle({ isOpen, setIsOpen, dispatch, getArticles, article }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -14,7 +14,7 @@ function NewArticle({ isOpen, setIsOpen, dispatch, getArticles }) {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
-    fetch("http://localhost:3000/article/create", {
+    fetch("http://localhost:3000/blog/create", {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -95,4 +95,4 @@ function NewArticle({ isOpen, setIsOpen, dispatch, getArticles }) {
     </Dialog>
   );
 }
-export default NewArticle;
+export default EditArticle;

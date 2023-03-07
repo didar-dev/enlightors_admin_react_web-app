@@ -72,11 +72,23 @@ function Articles() {
                 key={article.id}
                 className="flex flex-row w-full justify-between items-center p-2 bg-gray-100 rounded-md"
               >
-                <div className="flex flex-col gap-2">
-                  <h1 className="text-xl font-bold text-gray-800">
-                    {article.title}
-                  </h1>
-                  <p className="text-gray-800">{article.description}</p>
+                <div className="flex flex-row gap-6 items-center">
+                  <img
+                    src={
+                      article.image === "#"
+                        ? "https://climate.onep.go.th/wp-content/uploads/2020/01/default-image.jpg"
+                        : `http://localhost:3000/${article.image}`
+                    }
+                    alt="article"
+                    className="w-20 h-full rounded-md"
+                  />
+
+                  <div className="flex flex-col gap-2">
+                    <h1 className="text-xl font-bold text-gray-800">
+                      {article.title}
+                    </h1>
+                    <p className="text-gray-800">{article.description}</p>
+                  </div>
                 </div>
                 <div
                   className="flex  flex-row gap-2 
