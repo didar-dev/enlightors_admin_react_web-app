@@ -22,7 +22,7 @@ export default function RightBar() {
 
   return (
     <div className="h-screen bg-gray-800">
-      <div className="flex my-2 gap-2 flex-col max-w-48 p-2  h-full">
+      <div className="flex my-2 gap-2 flex-col w-48 max-w-48 p-2  h-full">
         {Pages.map((page) => (
           <Link
             to={page.path}
@@ -50,7 +50,7 @@ export default function RightBar() {
 
 const Pages = [
   {
-    name: "Blog and Articles",
+    name: "Articles",
     path: "/Articles",
     icons: {
       active: <MdArticle size={20} />,
