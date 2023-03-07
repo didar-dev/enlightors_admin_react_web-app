@@ -4,9 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, signout } from "./redux/user";
 import "./App.css";
 import Home from "./Pages/Home/Home";
+import Users from "./Pages/Users/Users";
+import Articles from "./Pages/Articles/Articles";
 import Login from "./Pages/Login/Login";
 import NavBar from "./components/NavBar";
 import Loading from "./components/Loading";
+import RightBar from "./components/RightBar";
 function App() {
   const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.user.user);
@@ -39,9 +42,14 @@ function App() {
       {user && (
         <>
           <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />{" "}
-          </Routes>
+          <div className="flex gap-2">
+            <RightBar />
+            <Routes>
+              <Route path="/" element={<Home />} />{" "}
+              <Route path="/users" element={<Users />} />{" "}
+              <Route path="/Articles" element={<Articles />} />{" "}
+            </Routes>
+          </div>
         </>
       )}
       {!user && (
