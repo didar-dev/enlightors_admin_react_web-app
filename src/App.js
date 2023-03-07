@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login, signout } from "./redux/user";
+import { login, signout } from "./redux/Auth";
 import "./App.css";
 import Home from "./Pages/Home/Home";
 import Users from "./Pages/Users/Users";
@@ -12,7 +12,8 @@ import Loading from "./components/Loading";
 import RightBar from "./components/RightBar";
 function App() {
   const [loading, setLoading] = useState(true);
-  const user = useSelector((state) => state.user.user);
+  const Auth = useSelector((state) => state.Auth.Auth);
+
   const dispatch = useDispatch();
   useEffect(() => {
     const Token = localStorage.getItem("token");
@@ -40,7 +41,7 @@ function App() {
 
   return (
     <div>
-      {user && (
+      {Auth && (
         <>
           <NavBar />
           <div className="flex gap-2">
@@ -53,7 +54,7 @@ function App() {
           </div>
         </>
       )}
-      {!user && (
+      {!Auth && (
         <Routes>
           <Route path="/" element={<Login />} />
         </Routes>

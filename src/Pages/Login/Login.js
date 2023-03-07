@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/user";
+import { login } from "../../redux/Auth";
 export default function Login() {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const user = useSelector((state) => state.user.user);
+  const Auth = useSelector((state) => state.Auth.Auth);
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
