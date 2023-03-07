@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RiUser3Line, RiUser3Fill } from "react-icons/ri";
 import { MdOutlineArticle, MdArticle } from "react-icons/md";
 export default function RightBar() {
-  const [current, setCurrent] = React.useState("Blog and Articles");
-  const [open, setOpen] = React.useState(false);
-  React.useEffect(() => {
+  const [current, setCurrent] = useState("Articles");
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
     if (window.innerWidth < 768) {
       setOpen(false);
     } else {
@@ -21,14 +21,21 @@ export default function RightBar() {
   });
 
   return (
-    <div className="h-screen bg-gray-800">
-      <div className="flex my-2 gap-2 flex-col w-48 max-w-48 p-2  h-full">
+    <div className="sticky top-0 flex flex-col gap-2 bg-gray-900 h-screen w-48 max-w-48">
+      <div className="flex justify-between items-center p-2 text-white">
+        <h1 className="text-2xl font-bold">Enlightors</h1>
+      </div>
+      <div
+        className={`flex gap-2 flex-col justify-between items-center p-2 ${
+          open ? "w-48 max-w-48" : "w-12"
+        }`}
+      >
         {Pages.map((page) => (
           <Link
             to={page.path}
             key={page.name}
             className={`${current === page.name ? "bg-gray-700" : "bg-gray-800"}
-            hover:bg-gray-700 text-white p-2 gap-2  flex rounded-md`}
+            hover:bg-gray-700 text-white p-2 gap-2 w-full flex rounded-md`}
             onClick={() => setCurrent(page.name)}
           >
             <div className="flex items-center gap-2">

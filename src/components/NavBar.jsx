@@ -8,10 +8,10 @@ function NavBar() {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   return (
-    <div className="bg-gray-800 text-white flex justify-between items-center p-4">
-      <div>
-        <h1 className="text-2xl font-bold">Enlightors</h1>
-      </div>
+    <div
+      className="sticky top-0 
+    bg-gray-800 text-white flex justify-between items-center p-4"
+    >
       <div></div>
       <div className="flex items-center">
         <Menu as="div" className="relative inline-block text-left">

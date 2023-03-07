@@ -33,6 +33,7 @@ function App() {
       setLoading(false);
     }
   }, []);
+
   if (loading) {
     return <Loading />;
   }
