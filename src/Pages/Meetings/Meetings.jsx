@@ -109,7 +109,7 @@ function Meetings() {
               >
                 <div className="flex flex-col ">
                   <p className="text-gray-800 font-bold text-lg">
-                    {Meeting.client}
+                    {Meeting.title}
                   </p>
                   <p className="text-gray-800">Client: {Meeting.client}</p>
                   <p className="text-gray-800">Admin: {Meeting.user}</p>

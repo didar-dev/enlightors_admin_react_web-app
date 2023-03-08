@@ -41,13 +41,13 @@ export default function RightBar() {
                 to={page.path}
                 key={page.name}
                 className={`${
-                  current === page.path ? "bg-gray-700" : "bg-gray-800"
+                  current.startsWith(page.path) ? "bg-gray-700" : "bg-gray-800"
                 }
               hover:bg-gray-700 text-white p-2 gap-2 w-full flex rounded-md`}
                 onClick={() => setCurrent(page.name)}
               >
                 <div className="flex items-center gap-2">
-                  {current === page.path
+                  {current.startsWith(page.path)
                     ? page.icons.active
                     : page.icons.inactive}
                 </div>
