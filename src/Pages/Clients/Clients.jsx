@@ -72,12 +72,37 @@ function Clients() {
                 return client;
               }
             })
+            .sort((a, b) => {
+              if (a.meetings_count < b.meetings_count) {
+                return 1;
+              } else if (a.meetings_count > b.meetings_count) {
+                return -1;
+              } else {
+                return 0;
+              }
+            })
             .map((client) => (
               <div
                 key={client.id}
-                className="flex flex-col p-2 bg-white rounded-md shadow-md"
+                className="flex flex-row w-full justify-between items-center p-2 bg-gray-100 rounded-md"
               >
-                <p className="text-gray-800 font-bold text-lg">{client.name}</p>
+                <div className="flex flex-col ">
+                  <p className="text-gray-800 font-bold text-lg">
+                    {client.name}
+                  </p>
+                  <p className="text-gray-800">
+                    Meetings: {client.meetings_count}
+                  </p>
+                  <p className="text-gray-800">{client.contact_number}</p>
+                </div>
+                <div className="flex flex-row gap-2">
+                  <button className="bg-gray-800 text-white p-2 rounded-md">
+                    <AiFillEdit />
+                  </button>
+                  <button className="bg-gray-800 text-white p-2 rounded-md">
+                    <BsFillTrashFill />
+                  </button>
+                </div>
               </div>
             ))}
       </div>

@@ -65,7 +65,7 @@ function NewClient({ isOpen, setIsOpen, dispatch, getClients }) {
             as="h1"
             className="text-2xl mb-2 font-bold text-gray-800"
           >
-            Add User
+            Add Client
           </Dialog.Title>
           <form className="flex flex-col gap-2" onSubmit={addClient}>
             <input
@@ -76,12 +76,13 @@ function NewClient({ isOpen, setIsOpen, dispatch, getClients }) {
               onChange={(e) => setName(e.target.value)}
             />
             <input
-              type="text"
+              type="number"
               placeholder="Contact Number"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
               id="contact_number"
-              onChange={(e) => setContactNumber(e.target.value)}
-              aria-describedby="emailHelp"
+              onChange={(e) =>
+                setContactNumber(e.target.value).replace(/[^0-9]/g, "")
+              }
             />
             <input
               type="date"

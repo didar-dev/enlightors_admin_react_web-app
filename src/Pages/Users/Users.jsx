@@ -136,16 +136,16 @@ function Users() {
                   <div className="flex flex-row gap-2">
                     <button
                       onClick={() => EditHandler(user)}
-                      className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300"
+                      className="bg-gray-800 text-white p-2 rounded-md"
                     >
-                      <AiFillEdit className="text-blue-500" size={22} />
+                      <AiFillEdit />
                     </button>
                     <button
                       disabled={user.id === Auth.id}
                       onClick={() => DeleteHandler(user.id)}
-                      className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="bg-gray-800 text-white p-2 rounded-md disabled:opacity-50"
                     >
-                      <BsFillTrashFill className="text-red-500" size={22} />
+                      <BsFillTrashFill />
                     </button>
                   </div>
                 </div>
