@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setClients } from "../../redux/clients";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
-import DeleteUser from "./components/DeleteUser";
-import NewUser from "./components/NewUser";
-import EditUser from "./components/EditUser";
+import DeleteClient from "./components/DeleteClient";
+import NewClient from "./components/NewClient";
+import EditClient from "./components/EditClient";
 import Loading from "../../components/Loading";
 function Clients() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [newClient, setNewClient] = useState(false);
   const clients = useSelector((state) => state.clients.clients);
   const Auth = useSelector((state) => state.Auth.Auth);
   useEffect(() => {
@@ -18,7 +19,9 @@ function Clients() {
     dispatch(getClients());
     setLoading(false);
   }, []);
-
+  useEffect(() => {
+    console.log(clients);
+  }, [clients]);
   const getClients = () => {
     return (dispatch) => {
       fetch("http://localhost:3000/clients", {
@@ -43,7 +46,10 @@ function Clients() {
     <div className="flex p-2 flex-col w-full gap-2">
       <div className="flex flex-row w-full justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800">Clients</h1>
-        <button className="bg-gray-800 text-white p-2 rounded-md">
+        <button
+          onClick={() => setNewClient(true)}
+          className="bg-gray-800 text-white p-2 rounded-md"
+        >
           Add New Client
         </button>
       </div>
@@ -75,9 +81,13 @@ function Clients() {
               </div>
             ))}
       </div>
-
+      <NewClient
+        isOpen={newClient}
+        setIsOpen={setNewClient}
+        dispatch={dispatch}
+        getClients={getClients}
+      />
       {/* <DeleteUser />
-      <NewUser />
       <EditUser /> */}
     </div>
   );

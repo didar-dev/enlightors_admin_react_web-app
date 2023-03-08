@@ -1,27 +1,22 @@
 import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
 
-function NewUser({ isOpen, setIsOpen, dispatch, getUsers }) {
-  const Auth = useSelector((state) => state.Auth.Auth);
+function NewClient({ isOpen, setIsOpen, dispatch, getClients }) {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user");
-  const [active, setActive] = useState("true");
+  const [contact_number, setContactNumber] = useState("");
+  const [joined_date, setJoinedDate] = useState("");
+
   const [error, setError] = useState("");
 
-  const addUser = async (e) => {
+  const addClient = async (e) => {
     e.preventDefault();
     const data = {
       name,
-      email,
-      password,
-      role,
-      active,
+      contact_number,
+      joined_date,
     };
-    const response = await fetch("http://localhost:3000/users/create", {
+    const response = await fetch("http://localhost:3000/clients", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,14 +30,12 @@ function NewUser({ isOpen, setIsOpen, dispatch, getUsers }) {
       return;
     }
 
-    if (result.message === "User created successfully") {
-      dispatch(getUsers());
+    if (result.message === "Client created successfully") {
       setIsOpen(false);
+      dispatch(getClients());
       setName("");
-      setEmail("");
-      setPassword("");
-      setRole("user");
-      setActive("true");
+      setContactNumber("");
+      setJoinedDate("");
       setError("");
     }
   };
@@ -74,49 +67,30 @@ function NewUser({ isOpen, setIsOpen, dispatch, getUsers }) {
           >
             Add User
           </Dialog.Title>
-          <form className="flex flex-col gap-2" onSubmit={addUser}>
+          <form className="flex flex-col gap-2" onSubmit={addClient}>
             <input
               type="text"
-              placeholder="Name"
+              placeholder="Client Name"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
               id="name"
               onChange={(e) => setName(e.target.value)}
             />
             <input
-              type="email"
-              placeholder="Email Address"
+              type="text"
+              placeholder="Contact Number"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
-              id="email"
-              onChange={(e) => setEmail(e.target.value)}
+              id="contact_number"
+              onChange={(e) => setContactNumber(e.target.value)}
               aria-describedby="emailHelp"
             />
             <input
-              type="password"
-              placeholder="Password"
+              type="date"
+              placeholder="Joined Date"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
-              id="password"
-              onChange={(e) => setPassword(e.target.value)}
+              id="joined_date"
+              onChange={(e) => setJoinedDate(e.target.value)}
             />
-            <select
-              className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-              <option
-                disabled={Auth.role !== "super_admin" ? true : false}
-                value="super_admin"
-              >
-                Super Admin
-              </option>
-            </select>
-            <select
-              className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
-              onChange={(e) => setActive(e.target.value)}
-            >
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
-            </select>
+
             {error && (
               <p className="text-red-500 text-sm font-semibold">{error}</p>
             )}
@@ -125,7 +99,7 @@ function NewUser({ isOpen, setIsOpen, dispatch, getUsers }) {
               type="submit"
               className="bg-gray-800 text-white p-2 rounded-md"
             >
-              Add User
+              Add Client
             </button>
           </form>
         </Dialog.Panel>
@@ -133,4 +107,4 @@ function NewUser({ isOpen, setIsOpen, dispatch, getUsers }) {
     </Dialog>
   );
 }
-export default NewUser;
+export default NewClient;
