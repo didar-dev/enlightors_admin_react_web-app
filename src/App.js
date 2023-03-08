@@ -7,6 +7,7 @@ import Home from "./Pages/Home/Home";
 import Users from "./Pages/Users/Users";
 import Articles from "./Pages/Articles/Articles";
 import Clients from "./Pages/Clients/Clients";
+import Meetings from "./Pages/Meetings/Meetings";
 import Login from "./Pages/Login/Login";
 import NavBar from "./components/NavBar";
 import Loading from "./components/Loading";
@@ -52,6 +53,7 @@ function App() {
               <Route path="/users" element={<Users />} />
               <Route path="/Articles" element={<Articles />} />
               <Route path="/Clients" element={<Clients />} />
+              <Route path="/Meetings" element={<Meetings />} />
             </Routes>
           </div>
         </>

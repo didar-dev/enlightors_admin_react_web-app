@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { RiUser3Line, RiUser3Fill } from "react-icons/ri";
 import { MdOutlineArticle, MdArticle } from "react-icons/md";
+import { HiOutlineUsers, HiUsers } from "react-icons/hi";
+import { IoLaptopOutline, IoLaptopSharp } from "react-icons/io5";
 export default function RightBar() {
   const [current, setCurrent] = useState("");
   const [open, setOpen] = useState(false);
@@ -94,8 +96,16 @@ const Pages = [
         name: "Clients",
         path: "/clients",
         icons: {
-          active: <RiUser3Fill size={20} />,
-          inactive: <RiUser3Line size={20} />,
+          active: <HiUsers size={20} />,
+          inactive: <HiOutlineUsers size={20} />,
+        },
+      },
+      {
+        name: "Meetings",
+        path: "/meetings",
+        icons: {
+          active: <IoLaptopSharp size={20} />,
+          inactive: <IoLaptopOutline size={20} />,
         },
       },
     ],
