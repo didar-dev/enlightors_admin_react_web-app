@@ -3,11 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../redux/users";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
+import DeleteUser from "./components/DeleteUser";
+
 import Loading from "../../components/Loading";
 function Users() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [deleteUser, setDeleteUser] = useState({
+    isOpen: false,
+    id: "",
+  });
+
   const users = useSelector((state) => state.users.users);
   useEffect(() => {
     dispatch(getUsers());
@@ -33,6 +40,12 @@ function Users() {
   if (loading) {
     return <Loading />;
   }
+  const DeleteHandler = (id) => {
+    setDeleteUser({
+      isOpen: true,
+      id: id,
+    });
+  };
 
   return (
     <div className="flex p-2 flex-col w-full gap-2">
@@ -65,7 +78,7 @@ function Users() {
                 >
                   <div className="flex flex-col gap-1">
                     <p className="text-gray-800 font-bold">{user.name}</p>
-                    {user.active === 1 ? (
+                    {user.active === "true" ? (
                       <p className="text-green-500">Active</p>
                     ) : (
                       <p className="text-red-500">Inactive</p>
@@ -75,7 +88,10 @@ function Users() {
                     <div className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300">
                       <AiFillEdit className="text-blue-500" size={22} />
                     </div>
-                    <div className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300">
+                    <div
+                      onClick={() => DeleteHandler(user.id)}
+                      className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300"
+                    >
                       <BsFillTrashFill className="text-red-500" size={22} />
                     </div>
                   </div>
@@ -83,6 +99,14 @@ function Users() {
               );
             })}
       </div>
+
+      <DeleteUser
+        isOpen={deleteUser.isOpen}
+        setIsOpen={(value) => setDeleteUser({ ...deleteUser, isOpen: value })}
+        id={deleteUser.id}
+        dispatch={dispatch}
+        getUsers={getUsers}
+      />
     </div>
   );
 }
