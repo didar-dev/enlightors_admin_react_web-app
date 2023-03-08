@@ -5,7 +5,7 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import DeleteUser from "./components/DeleteUser";
 import NewUser from "./components/NewUser";
-
+import EditUser from "./components/EditUser";
 import Loading from "../../components/Loading";
 function Users() {
   const dispatch = useDispatch();
@@ -16,6 +16,11 @@ function Users() {
     id: "",
   });
   const [newUser, setNewUser] = useState(false);
+  const [editUser, setEditUser] = useState({
+    isOpen: false,
+    user: {},
+  });
+
   const users = useSelector((state) => state.users.users);
   const Auth = useSelector((state) => state.Auth.Auth);
   useEffect(() => {
@@ -47,7 +52,12 @@ function Users() {
       id: id,
     });
   };
-
+  const EditHandler = (user) => {
+    setEditUser({
+      isOpen: true,
+      user: user,
+    });
+  };
   return (
     <div className="flex p-2 flex-col w-full gap-2">
       <div className="flex flex-row w-full justify-between items-center">
@@ -124,7 +134,10 @@ function Users() {
                     </p>
                   </div>
                   <div className="flex flex-row gap-2">
-                    <button className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300">
+                    <button
+                      onClick={() => EditHandler(user)}
+                      className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300"
+                    >
                       <AiFillEdit className="text-blue-500" size={22} />
                     </button>
                     <button
@@ -152,6 +165,14 @@ function Users() {
         setIsOpen={(value) => setNewUser(value)}
         dispatch={dispatch}
         getUsers={getUsers}
+      />
+      <EditUser
+        isOpen={editUser.isOpen}
+        setIsOpen={(value) => setEditUser({ ...editUser, isOpen: value })}
+        user={editUser.user}
+        dispatch={dispatch}
+        getUsers={getUsers}
+        Auth={Auth}
       />
     </div>
   );
