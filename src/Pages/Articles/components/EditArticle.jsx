@@ -73,14 +73,14 @@ function EditArticle({ isOpen, setIsOpen, dispatch, getArticles, article }) {
               placeholder="Title"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
               id="title"
-              value={title}
+              value={title || ""}
               onChange={(e) => setTitle(e.target.value)}
             />
             <textarea
               placeholder="Description"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
               id="description"
-              value={description}
+              value={description || ""}
               onChange={(e) => setDescription(e.target.value)}
             />
             <input
