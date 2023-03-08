@@ -104,13 +104,13 @@ function Articles() {
                 </div>
                 <div className="flex flex-row gap-2 items-center">
                   <div
-                    className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer"
+                    className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300"
                     onClick={() => EditHandler(article)}
                   >
                     <AiFillEdit className="text-blue-500" size={22} />
                   </div>
                   <div
-                    className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer"
+                    className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300"
                     onClick={() => DeleteHandler(article.id)}
                   >
                     <BsFillTrashFill className="text-red-500" size={22} />
