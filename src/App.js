@@ -8,6 +8,7 @@ import Users from "./Pages/Users/Users";
 import Articles from "./Pages/Articles/Articles";
 import Clients from "./Pages/Clients/Clients";
 import Meetings from "./Pages/Meetings/Meetings";
+import NewMeeting from "./Pages/Meetings/New/NewMeeting";
 import Login from "./Pages/Login/Login";
 import NavBar from "./components/NavBar";
 import Loading from "./components/Loading";
@@ -54,6 +55,7 @@ function App() {
               <Route path="/Articles" element={<Articles />} />
               <Route path="/Clients" element={<Clients />} />
               <Route path="/Meetings" element={<Meetings />} />
+              <Route path="/Meetings/New" element={<NewMeeting />} />
             </Routes>
           </div>
         </>

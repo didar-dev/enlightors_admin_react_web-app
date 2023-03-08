@@ -1,37 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setClients } from "../../redux/clients";
+import { setMeetings } from "../../redux/meetings";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
-import DeleteClient from "./components/DeleteMeeting";
-import NewClient from "./components/NewMeeting";
-import EditClient from "./components/EditMeeting";
+import { Link } from "react-router-dom";
+import DeleteMeeting from "./components/DeleteMeeting";
+import NewMeeting from "./New/NewMeeting";
+import EditMeeting from "./components/EditMeeting";
 import Loading from "../../components/Loading";
 function Meetings() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [newClient, setNewClient] = useState(false);
+  const [newMeeting, setNewMeeting] = useState(false);
   const [deleteUser, setDeleteUser] = useState({
     isOpen: false,
     id: "",
   });
-  const [editClient, setEditClient] = useState({
+  const [editMeeting, setEditMeeting] = useState({
     isOpen: false,
-    client: {},
+    Meeting: {},
   });
 
-  const clients = useSelector((state) => state.clients.clients);
+  const meetings = useSelector((state) => state.meetings.meetings);
   const Auth = useSelector((state) => state.Auth.Auth);
   useEffect(() => {
     setLoading(true);
-    dispatch(getClients());
+    dispatch(getmeetings());
     setLoading(false);
   }, []);
 
-  const getClients = () => {
+  const getmeetings = () => {
     return (dispatch) => {
-      fetch(`${process.env.REACT_APP_API}/clients`, {
+      fetch(`${process.env.REACT_APP_API}/meetings`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +41,7 @@ function Meetings() {
       })
         .then((res) => res.json())
         .then((data) => {
-          dispatch(setClients(data.clients));
+          dispatch(setMeetings(data.meetings));
         });
       setLoading(false);
     };
@@ -51,29 +52,27 @@ function Meetings() {
       id: id,
     });
   };
-  const EditHandler = (client) => {
-    setEditClient({
+  const EditHandler = (Meeting) => {
+    setEditMeeting({
       isOpen: true,
-      client: client,
+      Meeting: Meeting,
     });
   };
   if (loading) {
     return <Loading />;
   }
-  const FormatDate = (date) => {
-    return date.split("T")[0];
-  };
 
   return (
     <div className="flex p-2 flex-col w-full gap-2">
       <div className="flex flex-row w-full justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800">Meetings</h1>
-        <button
-          onClick={() => setNewClient(true)}
+        <Link
+          onClick={() => setNewMeeting(true)}
           className="bg-gray-800 text-white p-2 rounded-md"
+          to="/meetings/new"
         >
           Add New Meeting
-        </button>
+        </Link>
       </div>
       <input
         type="text"
@@ -83,15 +82,15 @@ function Meetings() {
         onChange={(e) => setSearch(e.target.value)}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-        {clients &&
-          clients
-            .filter((client) => {
+        {meetings &&
+          meetings
+            .filter((Meeting) => {
               if (search === "") {
-                return client;
+                return Meeting;
               } else if (
-                client.name.toLowerCase().includes(search.toLowerCase())
+                Meeting.user.toLowerCase().includes(search.toLowerCase())
               ) {
-                return client;
+                return Meeting;
               }
             })
             .sort((a, b) => {
@@ -103,34 +102,27 @@ function Meetings() {
                 return 0;
               }
             })
-            .map((client) => (
+            .map((Meeting) => (
               <div
-                key={client.id}
+                key={Meeting.id}
                 className="flex flex-row w-full justify-between items-center p-2 bg-gray-100 rounded-md"
               >
                 <div className="flex flex-col ">
                   <p className="text-gray-800 font-bold text-lg">
-                    {client.name}
+                    {Meeting.client}
                   </p>
-                  <p className="text-gray-800">
-                    Meetings: {client.meetings_count}
-                  </p>
-                  <p className="text-gray-800">
-                    Contact: {client.contact_number}
-                  </p>{" "}
-                  <p className="text-gray-800">
-                    Joinded Date: {FormatDate(client.joined_date)}
-                  </p>
+                  <p className="text-gray-800">Client: {Meeting.client}</p>
+                  <p className="text-gray-800">Admin: {Meeting.user}</p>
                 </div>
                 <div className="flex flex-row gap-2">
                   <button
-                    onClick={() => EditHandler(client)}
+                    onClick={() => EditHandler(Meeting)}
                     className="bg-gray-800 text-white p-2 rounded-md"
                   >
                     <AiFillEdit />
                   </button>
                   <button
-                    onClick={() => DeleteHandler(client.id)}
+                    onClick={() => DeleteHandler(Meeting.id)}
                     className="bg-gray-800 text-white p-2 rounded-md"
                   >
                     <BsFillTrashFill />
@@ -139,13 +131,13 @@ function Meetings() {
               </div>
             ))}
       </div>
-      {/* <NewClient
-        isOpen={newClient}
-        setIsOpen={setNewClient}
+      {/* <NewMeeting
+        isOpen={newMeeting}
+        setIsOpen={setNewMeeting}
         dispatch={dispatch}
-        getClients={getClients}
+        getmeetings={getmeetings}
       />
-      <DeleteClient
+      <DeleteMeeting
         isOpen={deleteUser.isOpen}
         setIsOpen={(value) =>
           setDeleteUser({
@@ -154,20 +146,20 @@ function Meetings() {
           })
         }
         dispatch={dispatch}
-        getClients={getClients}
+        getmeetings={getmeetings}
         id={deleteUser.id}
       />
-      <EditClient
-        isOpen={editClient.isOpen}
+      <EditMeeting
+        isOpen={editMeeting.isOpen}
         setIsOpen={(value) =>
-          setEditClient({
+          setEditMeeting({
             isOpen: value,
-            client: editClient.client,
+            Meeting: editMeeting.Meeting,
           })
         }
         dispatch={dispatch}
-        getClients={getClients}
-        client={editClient.client}
+        getmeetings={getmeetings}
+        Meeting={editMeeting.Meeting}
         FormatDate={FormatDate}
       /> */}
     </div>
