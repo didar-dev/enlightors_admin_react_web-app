@@ -6,7 +6,6 @@ function NewClient({ isOpen, setIsOpen, dispatch, getClients }) {
   const [name, setName] = useState("");
   const [contact_number, setContactNumber] = useState("");
   const [joined_date, setJoinedDate] = useState("");
-
   const [error, setError] = useState("");
 
   const addClient = async (e) => {
@@ -16,7 +15,7 @@ function NewClient({ isOpen, setIsOpen, dispatch, getClients }) {
       contact_number,
       joined_date,
     };
-    const response = await fetch("http://localhost:3000/clients", {
+    const response = await fetch(`${process.env.REACT_APP_API}/clients`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,9 +79,7 @@ function NewClient({ isOpen, setIsOpen, dispatch, getClients }) {
               placeholder="Contact Number"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
               id="contact_number"
-              onChange={(e) =>
-                setContactNumber(e.target.value).replace(/[^0-9]/g, "")
-              }
+              onChange={(e) => setContactNumber(e.target.value)}
             />
             <p className="text-gray-500 text-sm font-semibold">Joined Date</p>
             <input

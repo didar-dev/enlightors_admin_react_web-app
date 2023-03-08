@@ -16,6 +16,11 @@ function Clients() {
     isOpen: false,
     id: "",
   });
+  const [editClient, setEditClient] = useState({
+    isOpen: false,
+    client: {},
+  });
+
   const clients = useSelector((state) => state.clients.clients);
   const Auth = useSelector((state) => state.Auth.Auth);
   useEffect(() => {
@@ -23,12 +28,10 @@ function Clients() {
     dispatch(getClients());
     setLoading(false);
   }, []);
-  useEffect(() => {
-    console.log(clients);
-  }, [clients]);
+
   const getClients = () => {
     return (dispatch) => {
-      fetch("http://localhost:3000/clients", {
+      fetch(`${process.env.REACT_APP_API}/clients`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -48,9 +51,19 @@ function Clients() {
       id: id,
     });
   };
+  const EditHandler = (client) => {
+    setEditClient({
+      isOpen: true,
+      client: client,
+    });
+  };
   if (loading) {
     return <Loading />;
   }
+  const FormatDate = (date) => {
+    return date.split("T")[0];
+  };
+
   return (
     <div className="flex p-2 flex-col w-full gap-2">
       <div className="flex flex-row w-full justify-between items-center">
@@ -102,10 +115,18 @@ function Clients() {
                   <p className="text-gray-800">
                     Meetings: {client.meetings_count}
                   </p>
-                  <p className="text-gray-800">{client.contact_number}</p>
+                  <p className="text-gray-800">
+                    Contact: {client.contact_number}
+                  </p>{" "}
+                  <p className="text-gray-800">
+                    Joinded Date: {FormatDate(client.joined_date)}
+                  </p>
                 </div>
                 <div className="flex flex-row gap-2">
-                  <button className="bg-gray-800 text-white p-2 rounded-md">
+                  <button
+                    onClick={() => EditHandler(client)}
+                    className="bg-gray-800 text-white p-2 rounded-md"
+                  >
                     <AiFillEdit />
                   </button>
                   <button
@@ -135,6 +156,19 @@ function Clients() {
         dispatch={dispatch}
         getClients={getClients}
         id={deleteUser.id}
+      />
+      <EditClient
+        isOpen={editClient.isOpen}
+        setIsOpen={(value) =>
+          setEditClient({
+            isOpen: value,
+            client: editClient.client,
+          })
+        }
+        dispatch={dispatch}
+        getClients={getClients}
+        client={editClient.client}
+        FormatDate={FormatDate}
       />
     </div>
   );

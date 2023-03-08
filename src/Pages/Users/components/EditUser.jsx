@@ -23,20 +23,23 @@ function EditArticle({ Auth, isOpen, setIsOpen, dispatch, getUsers, user }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:3000/users/edit/${user.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          role,
-          active,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API}/users/edit/${user.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+            role,
+            active,
+          }),
+        }
+      );
       const data = await res.json();
 
       dispatch(getUsers());

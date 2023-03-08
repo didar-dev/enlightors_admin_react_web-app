@@ -5,7 +5,7 @@ function DeleteArticle({ isOpen, setIsOpen, id, dispatch, getArticles }) {
   const [loading, setLoading] = useState(false);
   const deleteArticle = () => {
     setLoading(true);
-    fetch(`http://localhost:3000/article/delete/${id}`, {
+    fetch(`${process.env.REACT_APP_API}/article/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

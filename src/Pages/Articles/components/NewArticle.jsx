@@ -14,7 +14,7 @@ function NewArticle({ isOpen, setIsOpen, dispatch, getArticles }) {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
-    fetch("http://localhost:3000/article/create", {
+    fetch(`${process.env.REACT_APP_API}/article/create`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,

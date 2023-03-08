@@ -11,15 +11,15 @@ import Login from "./Pages/Login/Login";
 import NavBar from "./components/NavBar";
 import Loading from "./components/Loading";
 import RightBar from "./components/RightBar";
+//// dotenv
 function App() {
   const [loading, setLoading] = useState(true);
   const Auth = useSelector((state) => state.Auth.Auth);
-
   const dispatch = useDispatch();
   useEffect(() => {
     const Token = localStorage.getItem("token");
     if (Token) {
-      fetch("http://localhost:3000/auth/me", {
+      fetch(`${process.env.REACT_APP_API}/auth/me`, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },

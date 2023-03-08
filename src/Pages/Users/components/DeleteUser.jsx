@@ -5,7 +5,7 @@ function DeleteUser({ isOpen, setIsOpen, id, dispatch, getUsers }) {
   const [loading, setLoading] = useState(false);
   const DeleteHandler = () => {
     setLoading(true);
-    fetch(`http://localhost:3000/users/delete/${id}`, {
+    fetch(`${process.env.REACT_APP_API}/users/delete/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
