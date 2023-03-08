@@ -84,6 +84,7 @@ function NewClient({ isOpen, setIsOpen, dispatch, getClients }) {
                 setContactNumber(e.target.value).replace(/[^0-9]/g, "")
               }
             />
+            <p className="text-gray-500 text-sm font-semibold">Joined Date</p>
             <input
               type="date"
               placeholder="Joined Date"

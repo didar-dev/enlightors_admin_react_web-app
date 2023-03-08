@@ -1,11 +1,12 @@
 import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
-function DeleteUser({ isOpen, setIsOpen, id, dispatch, getUsers }) {
+function DeleteClient({ isOpen, setIsOpen, id, dispatch, getClients }) {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const DeleteHandler = () => {
     setLoading(true);
-    fetch(`http://localhost:3000/users/delete/${id}`, {
+    fetch(`http://localhost:3000/clients/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -14,9 +15,14 @@ function DeleteUser({ isOpen, setIsOpen, id, dispatch, getUsers }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        dispatch(getUsers());
-        setIsOpen(false);
-        setLoading(false);
+        if (data.message === "Client deleted successfully") {
+          dispatch(getClients());
+          setIsOpen(false);
+          setLoading(false);
+        } else {
+          setError(data.message);
+          setLoading(false);
+        }
       });
   };
 
@@ -45,28 +51,31 @@ function DeleteUser({ isOpen, setIsOpen, id, dispatch, getUsers }) {
             as="h1"
             className="text-2xl mb-2 font-bold text-gray-800"
           >
-            Delete User
+            Delete Client
           </Dialog.Title>
           <Dialog.Description className="text-gray-800">
-            Are you sure you want to delete this user?
+            Are you sure you want to delete this client?
           </Dialog.Description>
-          <div className="flex justify-end mt-4">
-            <button
-              className="bg-black text-white px-4 py-2 rounded-lg mr-2"
-              onClick={() => setIsOpen(false)}
-            >
-              Cancel
-            </button>
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded-lg"
-              onClick={() => DeleteHandler()}
-            >
-              {loading ? "Deleting..." : "Delete"}
-            </button>
+          <div className="flex flex-row justify-between items-center mt-4">
+            <p className="text-red-500 text-sm mr-2">{error}</p>
+            <div className="flex flex-row gap-2">
+              <button
+                className="bg-black text-white px-4 py-2 rounded-lg mr-2"
+                onClick={() => setIsOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                onClick={() => DeleteHandler()}
+              >
+                {loading ? "Deleting..." : "Delete"}
+              </button>
+            </div>
           </div>
         </Dialog.Panel>
       </motion.div>
     </Dialog>
   );
 }
-export default DeleteUser;
+export default DeleteClient;

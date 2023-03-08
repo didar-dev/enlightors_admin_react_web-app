@@ -12,6 +12,10 @@ function Clients() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [newClient, setNewClient] = useState(false);
+  const [deleteUser, setDeleteUser] = useState({
+    isOpen: false,
+    id: "",
+  });
   const clients = useSelector((state) => state.clients.clients);
   const Auth = useSelector((state) => state.Auth.Auth);
   useEffect(() => {
@@ -38,7 +42,12 @@ function Clients() {
       setLoading(false);
     };
   };
-
+  const DeleteHandler = (id) => {
+    setDeleteUser({
+      isOpen: true,
+      id: id,
+    });
+  };
   if (loading) {
     return <Loading />;
   }
@@ -99,7 +108,10 @@ function Clients() {
                   <button className="bg-gray-800 text-white p-2 rounded-md">
                     <AiFillEdit />
                   </button>
-                  <button className="bg-gray-800 text-white p-2 rounded-md">
+                  <button
+                    onClick={() => DeleteHandler(client.id)}
+                    className="bg-gray-800 text-white p-2 rounded-md"
+                  >
                     <BsFillTrashFill />
                   </button>
                 </div>
@@ -112,8 +124,18 @@ function Clients() {
         dispatch={dispatch}
         getClients={getClients}
       />
-      {/* <DeleteUser />
-      <EditUser /> */}
+      <DeleteClient
+        isOpen={deleteUser.isOpen}
+        setIsOpen={(value) =>
+          setDeleteUser({
+            isOpen: value,
+            id: deleteUser.id,
+          })
+        }
+        dispatch={dispatch}
+        getClients={getClients}
+        id={deleteUser.id}
+      />
     </div>
   );
 }
