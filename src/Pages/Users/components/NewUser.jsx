@@ -94,7 +94,7 @@ function NewUser({ isOpen, setIsOpen, dispatch, getUsers }) {
               type="password"
               placeholder="Password"
               className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-gray-500"
-              id="email"
+              id="password"
               onChange={(e) => setPassword(e.target.value)}
             />
             <select

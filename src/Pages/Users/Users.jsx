@@ -17,6 +17,7 @@ function Users() {
   });
   const [newUser, setNewUser] = useState(false);
   const users = useSelector((state) => state.users.users);
+  const Auth = useSelector((state) => state.Auth.Auth);
   useEffect(() => {
     dispatch(getUsers());
   }, []);
@@ -73,30 +74,66 @@ function Users() {
                 user.email.toLowerCase().includes(search.toLowerCase()) ||
                 user.name.toLowerCase().includes(search.toLowerCase())
             )
+            .sort((a, b) => {
+              //// role sorting
+              if (a.role === "super_admin") {
+                return -1;
+              }
+              if (b.role === "super_admin") {
+                return 1;
+              }
+              if (a.role === "admin") {
+                return -1;
+              }
+              if (b.role === "admin") {
+                return 1;
+              }
+              if (a.role === "user") {
+                return -1;
+              }
+              if (b.role === "user") {
+                return 1;
+              }
+              return 0;
+            })
             .map((user) => {
               return (
                 <div
                   key={user.id}
                   className="flex flex-row w-full justify-between items-center p-2 bg-gray-100 rounded-md"
                 >
-                  <div className="flex flex-col gap-1">
-                    <p className="text-gray-800 font-bold">{user.name}</p>
+                  <div className="flex flex-col ">
+                    <div className="flex flex-row gap-2 items-center">
+                      <p className="text-gray-800 font-bold">{user.name}</p>{" "}
+                      {user.id === Auth.id && (
+                        <p className="text-gray-500">You</p>
+                      )}
+                    </div>
                     {user.active === "true" ? (
                       <p className="text-green-500">Active</p>
                     ) : (
                       <p className="text-red-500">Inactive</p>
                     )}
+                    <p className="text-gray-500">{user.email}</p>{" "}
+                    <p className="text-gray-500">
+                      {user.role === "super_admin"
+                        ? "Super Admin"
+                        : user.role === "admin"
+                        ? "Admin"
+                        : "User"}
+                    </p>
                   </div>
                   <div className="flex flex-row gap-2">
-                    <div className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300">
+                    <button className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300">
                       <AiFillEdit className="text-blue-500" size={22} />
-                    </div>
-                    <div
+                    </button>
+                    <button
+                      disabled={user.id === Auth.id}
                       onClick={() => DeleteHandler(user.id)}
-                      className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300"
+                      className="flex flex-row gap-2bg-gray-200 rounded-md p-2 hover:bg-gray-300 cursor-pointer  transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <BsFillTrashFill className="text-red-500" size={22} />
-                    </div>
+                    </button>
                   </div>
                 </div>
               );

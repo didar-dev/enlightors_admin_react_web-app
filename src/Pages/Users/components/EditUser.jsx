@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
-function EditArticle({ isOpen, setIsOpen, dispatch, getArticles, article }) {
+function EditArticle({ isOpen, setIsOpen, dispatch, getArticles, user }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
