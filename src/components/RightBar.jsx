@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { RiUser3Line, RiUser3Fill } from "react-icons/ri";
 import { MdOutlineArticle, MdArticle } from "react-icons/md";
 export default function RightBar() {
-  const [current, setCurrent] = useState("Articles");
+  const [current, setCurrent] = useState("");
   const [open, setOpen] = useState(false);
+  const location = useLocation(); // once ready it returns the 'window.location' object
+
   useEffect(() => {
+    setCurrent(location.pathname);
+
     if (window.innerWidth < 768) {
       setOpen(false);
     } else {
       setOpen(true);
     }
-  }, []);
+  }, [location]);
   window.addEventListener("resize", () => {
     if (window.innerWidth < 768) {
       setOpen(false);
@@ -35,13 +39,13 @@ export default function RightBar() {
                 to={page.path}
                 key={page.name}
                 className={`${
-                  current === page.name ? "bg-gray-700" : "bg-gray-800"
+                  current === page.path ? "bg-gray-700" : "bg-gray-800"
                 }
               hover:bg-gray-700 text-white p-2 gap-2 w-full flex rounded-md`}
                 onClick={() => setCurrent(page.name)}
               >
                 <div className="flex items-center gap-2">
-                  {current === page.name
+                  {current === page.path
                     ? page.icons.active
                     : page.icons.inactive}
                 </div>

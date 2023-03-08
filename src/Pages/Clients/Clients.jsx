@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUsers } from "../../redux/users";
+import { setClients } from "../../redux/clients";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import DeleteUser from "./components/DeleteUser";
@@ -13,6 +13,29 @@ function Clients() {
   const [search, setSearch] = useState("");
   const clients = useSelector((state) => state.clients.clients);
   const Auth = useSelector((state) => state.Auth.Auth);
+  useEffect(() => {
+    setLoading(true);
+    dispatch(getClients());
+    setLoading(false);
+  }, []);
+
+  const getClients = () => {
+    return (dispatch) => {
+      fetch("http://localhost:3000/clients", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch(setClients(data.clients));
+        });
+      setLoading(false);
+    };
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -31,7 +54,27 @@ function Clients() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2"></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        {clients &&
+          clients
+            .filter((client) => {
+              if (search === "") {
+                return client;
+              } else if (
+                client.name.toLowerCase().includes(search.toLowerCase())
+              ) {
+                return client;
+              }
+            })
+            .map((client) => (
+              <div
+                key={client.id}
+                className="flex flex-col p-2 bg-white rounded-md shadow-md"
+              >
+                <p className="text-gray-800 font-bold text-lg">{client.name}</p>
+              </div>
+            ))}
+      </div>
 
       {/* <DeleteUser />
       <NewUser />
