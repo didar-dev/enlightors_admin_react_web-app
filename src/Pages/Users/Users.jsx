@@ -4,6 +4,7 @@ import { setUsers } from "../../redux/users";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import DeleteUser from "./components/DeleteUser";
+import NewUser from "./components/NewUser";
 
 import Loading from "../../components/Loading";
 function Users() {
@@ -14,7 +15,7 @@ function Users() {
     isOpen: false,
     id: "",
   });
-
+  const [newUser, setNewUser] = useState(false);
   const users = useSelector((state) => state.users.users);
   useEffect(() => {
     dispatch(getUsers());
@@ -30,7 +31,6 @@ function Users() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           dispatch(setUsers(data.users));
         });
       setLoading(false);
@@ -51,7 +51,10 @@ function Users() {
     <div className="flex p-2 flex-col w-full gap-2">
       <div className="flex flex-row w-full justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-800">Users</h1>
-        <button className="bg-gray-800 text-white p-2 rounded-md">
+        <button
+          onClick={() => setNewUser(true)}
+          className="bg-gray-800 text-white p-2 rounded-md"
+        >
           Add User
         </button>
       </div>
@@ -104,6 +107,12 @@ function Users() {
         isOpen={deleteUser.isOpen}
         setIsOpen={(value) => setDeleteUser({ ...deleteUser, isOpen: value })}
         id={deleteUser.id}
+        dispatch={dispatch}
+        getUsers={getUsers}
+      />
+      <NewUser
+        isOpen={newUser}
+        setIsOpen={(value) => setNewUser(value)}
         dispatch={dispatch}
         getUsers={getUsers}
       />
