@@ -9,6 +9,7 @@ import Articles from "./Pages/Articles/Articles";
 import Clients from "./Pages/Clients/Clients";
 import Meetings from "./Pages/Meetings/Meetings";
 import NewMeeting from "./Pages/Meetings/New/NewMeeting";
+import NotFound from "./Pages/NotFound";
 import Login from "./Pages/Login/Login";
 import NavBar from "./components/NavBar";
 import Loading from "./components/Loading";
@@ -56,6 +57,7 @@ function App() {
               <Route path="/Clients" element={<Clients />} />
               <Route path="/Meetings" element={<Meetings />} />
               <Route path="/Meetings/New" element={<NewMeeting />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
         </>
@@ -63,6 +65,7 @@ function App() {
       {!Auth && (
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       )}
     </div>
