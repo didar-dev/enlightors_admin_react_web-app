@@ -9,8 +9,9 @@ import Articles from "./Pages/Articles/Articles";
 import Clients from "./Pages/Clients/Clients";
 import Meetings from "./Pages/Meetings/Meetings";
 import NewMeeting from "./Pages/Meetings/New/NewMeeting";
+import AuditLog from "./Pages/AuditLog/AuditLog";
 import NotFound from "./Pages/NotFound";
-import Login from "./Pages/Login/Login";
+import Login from "./Pages/Login/Login.";
 import NavBar from "./components/NavBar";
 import Loading from "./components/Loading";
 import RightBar from "./components/RightBar";
@@ -19,6 +20,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const Auth = useSelector((state) => state.Auth.Auth);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const Token = localStorage.getItem("token");
     if (Token) {
@@ -57,6 +59,9 @@ function App() {
               <Route path="/Clients" element={<Clients />} />
               <Route path="/Meetings" element={<Meetings />} />
               <Route path="/Meetings/New" element={<NewMeeting />} />
+              {Auth.role === "super_admin" && (
+                <Route path="/auditlogs" element={<AuditLog />} />
+              )}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>

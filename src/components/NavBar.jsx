@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { GrLogout } from "react-icons/gr";
 import { login, signout } from ".././redux/Auth";
+import { Navigate } from "react-router-dom";
 function NavBar() {
   const Auth = useSelector((state) => state.Auth.Auth);
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function NavBar() {
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       onClick={() => {
                         dispatch(signout());
+                        return <Navigate to="/login" />;
                       }}
                     >
                       {active ? (

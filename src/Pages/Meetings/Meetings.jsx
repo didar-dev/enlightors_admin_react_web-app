@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import DeleteMeeting from "./components/DeleteMeeting";
 import EditMeeting from "./components/EditMeeting";
 import Loading from "../../components/Loading";
+
 function Meetings() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
