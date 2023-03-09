@@ -171,7 +171,7 @@ function EditMeeting({ isOpen, setIsOpen, dispatch, getMeetings, Meeting }) {
                 type="submit"
                 className="bg-gray-800 text-white font-semibold rounded-md p-2"
               >
-                Create Meeting
+                Edit Meeting
               </button>
             </div>
           </form>
