@@ -29,7 +29,7 @@ function NewMeeting() {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/meetings", {
+    fetch(`${process.env.REACT_APP_API}/meetings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
