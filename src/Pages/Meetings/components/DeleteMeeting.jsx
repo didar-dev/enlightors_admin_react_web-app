@@ -1,12 +1,12 @@
 import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
-function DeleteClient({ isOpen, setIsOpen, id, dispatch, getClients }) {
+function DeleteMeeing({ isOpen, setIsOpen, id, dispatch, getMeetings }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const DeleteHandler = () => {
     setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/clients/${id}`, {
+    fetch(`${process.env.REACT_APP_API}/meetings/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -15,8 +15,8 @@ function DeleteClient({ isOpen, setIsOpen, id, dispatch, getClients }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.message === "Client deleted successfully") {
-          dispatch(getClients());
+        if (data.message === "Meeting deleted successfully") {
+          dispatch(getMeetings());
           setIsOpen(false);
           setLoading(false);
         } else {
@@ -51,10 +51,10 @@ function DeleteClient({ isOpen, setIsOpen, id, dispatch, getClients }) {
             as="h1"
             className="text-2xl mb-2 font-bold text-gray-800"
           >
-            Delete Client
+            Delete Meeting
           </Dialog.Title>
           <Dialog.Description className="text-gray-800">
-            Are you sure you want to delete this client?
+            Are you sure you want to delete this meeting?
           </Dialog.Description>
           <div className="flex flex-row justify-between items-center mt-4">
             <p className="text-red-500 text-sm mr-2">{error}</p>
@@ -78,4 +78,4 @@ function DeleteClient({ isOpen, setIsOpen, id, dispatch, getClients }) {
     </Dialog>
   );
 }
-export default DeleteClient;
+export default DeleteMeeing;

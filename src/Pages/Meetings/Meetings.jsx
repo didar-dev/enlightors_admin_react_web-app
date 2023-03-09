@@ -5,7 +5,6 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import DeleteMeeting from "./components/DeleteMeeting";
-import NewMeeting from "./New/NewMeeting";
 import EditMeeting from "./components/EditMeeting";
 import Loading from "../../components/Loading";
 function Meetings() {
@@ -13,7 +12,7 @@ function Meetings() {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [newMeeting, setNewMeeting] = useState(false);
-  const [deleteUser, setDeleteUser] = useState({
+  const [deleteMeeting, setDeleteMeeting] = useState({
     isOpen: false,
     id: "",
   });
@@ -26,11 +25,11 @@ function Meetings() {
   const Auth = useSelector((state) => state.Auth.Auth);
   useEffect(() => {
     setLoading(true);
-    dispatch(getmeetings());
+    dispatch(getMeetings());
     setLoading(false);
   }, []);
 
-  const getmeetings = () => {
+  const getMeetings = () => {
     return (dispatch) => {
       fetch(`${process.env.REACT_APP_API}/meetings`, {
         method: "GET",
@@ -47,7 +46,7 @@ function Meetings() {
     };
   };
   const DeleteHandler = (id) => {
-    setDeleteUser({
+    setDeleteMeeting({
       isOpen: true,
       id: id,
     });
@@ -131,25 +130,20 @@ function Meetings() {
               </div>
             ))}
       </div>
-      {/* <NewMeeting
-        isOpen={newMeeting}
-        setIsOpen={setNewMeeting}
-        dispatch={dispatch}
-        getmeetings={getmeetings}
-      />
+
       <DeleteMeeting
-        isOpen={deleteUser.isOpen}
+        isOpen={deleteMeeting.isOpen}
         setIsOpen={(value) =>
-          setDeleteUser({
+          setDeleteMeeting({
             isOpen: value,
-            id: deleteUser.id,
+            id: deleteMeeting.id,
           })
         }
         dispatch={dispatch}
-        getmeetings={getmeetings}
-        id={deleteUser.id}
+        getMeetings={getMeetings}
+        id={deleteMeeting.id}
       />
-      <EditMeeting
+      {/* <EditMeeting
         isOpen={editMeeting.isOpen}
         setIsOpen={(value) =>
           setEditMeeting({
