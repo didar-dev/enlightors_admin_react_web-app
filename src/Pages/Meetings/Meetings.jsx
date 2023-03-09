@@ -87,7 +87,7 @@ function Meetings() {
               if (search === "") {
                 return Meeting;
               } else if (
-                Meeting.user.toLowerCase().includes(search.toLowerCase())
+                Meeting.title.toLowerCase().includes(search.toLowerCase())
               ) {
                 return Meeting;
               }
