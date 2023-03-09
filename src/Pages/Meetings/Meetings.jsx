@@ -143,7 +143,7 @@ function Meetings() {
         getMeetings={getMeetings}
         id={deleteMeeting.id}
       />
-      {/* <EditMeeting
+      <EditMeeting
         isOpen={editMeeting.isOpen}
         setIsOpen={(value) =>
           setEditMeeting({
@@ -152,10 +152,9 @@ function Meetings() {
           })
         }
         dispatch={dispatch}
-        getmeetings={getmeetings}
+        getMeetings={getMeetings}
         Meeting={editMeeting.Meeting}
-        FormatDate={FormatDate}
-      /> */}
+      />
     </div>
   );
 }

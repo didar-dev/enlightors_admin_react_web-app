@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { redirect } from "react-router-dom";
-
 import { getClients } from "../../../utils/functions";
 import { setClients } from "../../../redux/clients";
 import { useDispatch, useSelector } from "react-redux";
