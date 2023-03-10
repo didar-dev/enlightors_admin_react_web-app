@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMeetings } from "../../redux/meetings";
+import { setMeetings, deleteMeetingById } from "../../redux/meetings";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -142,6 +142,7 @@ function Meetings() {
         }
         dispatch={dispatch}
         getMeetings={getMeetings}
+        deleteMeetingById={deleteMeetingById}
         id={deleteMeeting.id}
       />
       <EditMeeting

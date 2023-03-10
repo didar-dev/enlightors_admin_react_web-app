@@ -1,7 +1,14 @@
 import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
-function DeleteMeeing({ isOpen, setIsOpen, id, dispatch, getMeetings }) {
+function DeleteMeeing({
+  isOpen,
+  setIsOpen,
+  id,
+  dispatch,
+  getMeetings,
+  deleteMeetingById,
+}) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const DeleteHandler = () => {
@@ -16,7 +23,7 @@ function DeleteMeeing({ isOpen, setIsOpen, id, dispatch, getMeetings }) {
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "Meeting deleted successfully") {
-          dispatch(getMeetings());
+          dispatch(deleteMeetingById(id));
           setIsOpen(false);
           setLoading(false);
         } else {
