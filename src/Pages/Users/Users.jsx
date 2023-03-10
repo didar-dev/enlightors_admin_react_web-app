@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUsers } from "../../redux/users";
+import { setUsers, deleteUsersById } from "../../redux/users";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import DeleteUser from "./components/DeleteUser";
@@ -159,6 +159,7 @@ function Users() {
         id={deleteUser.id}
         dispatch={dispatch}
         getUsers={getUsers}
+        deleteUsersById={deleteUsersById}
       />
       <NewUser
         isOpen={newUser}

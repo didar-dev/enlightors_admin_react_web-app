@@ -1,7 +1,14 @@
 import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
-function DeleteUser({ isOpen, setIsOpen, id, dispatch, getUsers }) {
+function DeleteUser({
+  isOpen,
+  setIsOpen,
+  id,
+  dispatch,
+  getUsers,
+  deleteUsersById,
+}) {
   const [loading, setLoading] = useState(false);
   const DeleteHandler = () => {
     setLoading(true);
@@ -14,7 +21,7 @@ function DeleteUser({ isOpen, setIsOpen, id, dispatch, getUsers }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        dispatch(getUsers());
+        dispatch(deleteUsersById(id));
         setIsOpen(false);
         setLoading(false);
       });
