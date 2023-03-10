@@ -31,7 +31,7 @@ function Clients() {
 
   const getClients = () => {
     return (dispatch) => {
-      fetch(`${process.env.REACT_APP_API}/clients`, {
+      fetch(`${process.env.REACT_APP_API}clients`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

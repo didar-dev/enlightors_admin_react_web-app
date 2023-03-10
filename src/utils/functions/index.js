@@ -1,5 +1,5 @@
 export const getClients = async () => {
-  const Clients = await fetch(`${process.env.REACT_APP_API}/clients`, {
+  const Clients = await fetch(`${process.env.REACT_APP_API}clients`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -8,4 +8,3 @@ export const getClients = async () => {
   });
   return Clients.json();
 };
-

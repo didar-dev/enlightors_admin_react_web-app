@@ -6,7 +6,7 @@ function DeleteClient({ isOpen, setIsOpen, id, dispatch, getClients }) {
   const [error, setError] = useState(false);
   const DeleteHandler = () => {
     setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/clients/${id}`, {
+    fetch(`${process.env.REACT_APP_API}clients/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

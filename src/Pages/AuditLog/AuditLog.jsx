@@ -7,7 +7,7 @@ export default function AuditLog() {
   const logs = useSelector((state) => state.logs.logs);
   const getLogs = () => {
     return (dispatch) => {
-      fetch(`${process.env.REACT_APP_API}/logs`, {
+      fetch(`${process.env.REACT_APP_API}logs`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

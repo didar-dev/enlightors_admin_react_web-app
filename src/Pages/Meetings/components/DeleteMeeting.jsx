@@ -6,7 +6,7 @@ function DeleteMeeing({ isOpen, setIsOpen, id, dispatch, getMeetings }) {
   const [error, setError] = useState(false);
   const DeleteHandler = () => {
     setLoading(true);
-    fetch(`${process.env.REACT_APP_API}/meetings/${id}`, {
+    fetch(`${process.env.REACT_APP_API}meetings/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

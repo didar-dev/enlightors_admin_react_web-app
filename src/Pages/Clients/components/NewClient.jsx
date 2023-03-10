@@ -15,7 +15,7 @@ function NewClient({ isOpen, setIsOpen, dispatch, getClients }) {
       contact_number,
       joined_date,
     };
-    const response = await fetch(`${process.env.REACT_APP_API}/clients`, {
+    const response = await fetch(`${process.env.REACT_APP_API}clients`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

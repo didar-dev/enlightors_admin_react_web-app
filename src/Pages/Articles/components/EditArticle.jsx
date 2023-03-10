@@ -20,7 +20,7 @@ function EditArticle({ isOpen, setIsOpen, dispatch, getArticles, article }) {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("image", image);
-    fetch(`${process.env.REACT_APP_API}/article/edit/${article.id}`, {
+    fetch(`${process.env.REACT_APP_API}article/edit/${article.id}`, {
       method: "PATCH",
       headers: {
         authorization: `Bearer ${localStorage.getItem("token")}`,

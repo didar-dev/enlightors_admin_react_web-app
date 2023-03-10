@@ -44,7 +44,7 @@ function EditMeeting({ isOpen, setIsOpen, dispatch, getMeetings, Meeting }) {
     setLoading(true);
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_API}/meetings/${Meeting.id}`,
+        `${process.env.REACT_APP_API}meetings/${Meeting.id}`,
         {
           method: "PATCH",
           headers: {

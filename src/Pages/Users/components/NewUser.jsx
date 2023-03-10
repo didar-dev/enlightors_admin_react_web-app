@@ -21,7 +21,7 @@ function NewUser({ isOpen, setIsOpen, dispatch, getUsers }) {
       role,
       active,
     };
-    const response = await fetch(`${process.env.REACT_APP_API}/users/create`, {
+    const response = await fetch(`${process.env.REACT_APP_API}users/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

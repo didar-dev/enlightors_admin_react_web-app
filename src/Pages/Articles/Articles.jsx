@@ -27,7 +27,7 @@ function Articles() {
 
   const getArticles = () => {
     return (dispatch) => {
-      fetch(`${process.env.REACT_APP_API}/article/articles`, {
+      fetch(`${process.env.REACT_APP_API}article/articles`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +89,7 @@ function Articles() {
                     src={
                       article.image === "#"
                         ? "https://climate.onep.go.th/wp-content/uploads/2020/01/default-image.jpg"
-                        : `${process.env.REACT_APP_API}/${article.image}`
+                        : `${process.env.REACT_APP_API}${article.image}`
                     }
                     alt="article"
                     className="w-20 h-full rounded-md"

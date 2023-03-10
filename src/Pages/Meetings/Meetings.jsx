@@ -32,7 +32,7 @@ function Meetings() {
 
   const getMeetings = () => {
     return (dispatch) => {
-      fetch(`${process.env.REACT_APP_API}/meetings`, {
+      fetch(`${process.env.REACT_APP_API}meetings`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

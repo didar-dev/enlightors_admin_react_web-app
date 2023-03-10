@@ -28,7 +28,7 @@ function Users() {
   }, []);
   const getUsers = () => {
     return (dispatch) => {
-      fetch(`${process.env.REACT_APP_API}/users/all`, {
+      fetch(`${process.env.REACT_APP_API}users/all`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

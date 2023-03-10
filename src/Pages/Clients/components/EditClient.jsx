@@ -20,7 +20,7 @@ function EditArticle({ isOpen, setIsOpen, dispatch, getClients, client }) {
     setLoading(true);
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_API}/clients/${client.id}`,
+        `${process.env.REACT_APP_API}clients/${client.id}`,
         {
           method: "PATCH",
           headers: {

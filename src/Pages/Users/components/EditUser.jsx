@@ -24,7 +24,7 @@ function EditArticle({ Auth, isOpen, setIsOpen, dispatch, getUsers, user }) {
     setLoading(true);
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_API}/users/edit/${user.id}`,
+        `${process.env.REACT_APP_API}users/edit/${user.id}`,
         {
           method: "PATCH",
           headers: {

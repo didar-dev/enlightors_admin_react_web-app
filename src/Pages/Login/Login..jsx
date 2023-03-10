@@ -15,7 +15,7 @@ export default function Login() {
     e.preventDefault();
     try {
       setLoading(true);
-      const data = await fetch(`${process.env.REACT_APP_API}/auth/signin`, {
+      const data = await fetch(`${process.env.REACT_APP_API}auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
