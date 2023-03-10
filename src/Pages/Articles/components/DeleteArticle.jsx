@@ -1,7 +1,14 @@
 import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
-function DeleteArticle({ isOpen, setIsOpen, id, dispatch, getArticles }) {
+function DeleteArticle({
+  isOpen,
+  setIsOpen,
+  id,
+  dispatch,
+  getArticles,
+  deleteArticleById,
+}) {
   const [loading, setLoading] = useState(false);
   const deleteArticle = () => {
     setLoading(true);
@@ -14,7 +21,7 @@ function DeleteArticle({ isOpen, setIsOpen, id, dispatch, getArticles }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        dispatch(getArticles());
+        dispatch(deleteArticleById(id));
         setIsOpen(false);
         setLoading(false);
       });

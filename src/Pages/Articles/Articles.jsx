@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import NewArticle from "./components/NewArticle";
 import DeleteArticle from "./components/DeleteArticle";
 import EditArticle from "./components/EditArticle";
-import { setArticles } from "../../redux/articles";
+import { setArticles, deleteArticleById } from "../../redux/articles";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 function Articles() {
@@ -132,6 +132,7 @@ function Articles() {
         }
         id={deletearticle.id}
         getArticles={getArticles}
+        deleteArticleById={deleteArticleById}
         dispatch={dispatch}
       />
       <EditArticle
