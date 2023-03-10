@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setClients } from "../../redux/clients";
+import { setClients, deleteClientById } from "../../redux/clients";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import DeleteClient from "./components/DeleteClient";
@@ -156,6 +156,7 @@ function Clients() {
         dispatch={dispatch}
         getClients={getClients}
         id={deleteUser.id}
+        deleteClientById={deleteClientById}
       />
       <EditClient
         isOpen={editClient.isOpen}

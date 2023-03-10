@@ -1,7 +1,14 @@
 import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { motion } from "framer-motion";
-function DeleteClient({ isOpen, setIsOpen, id, dispatch, getClients }) {
+function DeleteClient({
+  isOpen,
+  setIsOpen,
+  id,
+  dispatch,
+  getClients,
+  deleteClientById,
+}) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const DeleteHandler = () => {
@@ -16,7 +23,7 @@ function DeleteClient({ isOpen, setIsOpen, id, dispatch, getClients }) {
       .then((res) => res.json())
       .then((data) => {
         if (data.message === "Client deleted successfully") {
-          dispatch(getClients());
+          dispatch(deleteClientById(id));
           setIsOpen(false);
           setLoading(false);
         } else {

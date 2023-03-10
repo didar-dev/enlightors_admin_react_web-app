@@ -24,8 +24,14 @@ export const clientsSlice = createSlice({
           });
       };
     },
+    deleteClientById: (state, action) => {
+      state.clients = state.clients.filter(
+        (client) => client.id !== action.payload
+      );
+    },
   },
 });
 
-export const { setClients, getClients } = clientsSlice.actions;
+export const { setClients, getClients, deleteClientById } =
+  clientsSlice.actions;
 export default clientsSlice.reducer;
